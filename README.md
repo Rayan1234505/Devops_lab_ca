@@ -175,7 +175,7 @@ claim that a remote deployment has occurred.
 ## Demonstration checklist
 
 1. Run `docker compose up --build`.
-2. Open the web interface and enter `https://example.com`.
+2. Open the web interface and then enter `https://example.com`.
 3. Show the generated QR code and download it.
 4. Open `/healthz` to show the container probe.
 5. Show the GitHub Actions run and its test/build stages.
