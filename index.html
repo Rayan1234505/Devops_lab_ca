@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QR Code Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <p class="eyebrow">Containerized web service</p>
+      <h1>QR Code Generator</h1>
+      <p class="intro">Turn a URL or plain text into a downloadable QR code.</p>
+      {% if error %}
+        <div class="alert" role="alert">{{ error }}</div>
+      {% endif %}
+      <form method="post" action="{{ url_for('generate') }}">
+        <label for="data">Text or URL</label>
+        <textarea id="data" name="data" rows="5" maxlength="{{ max_data_length }}"
+          placeholder="https://example.com" required>{{ data or "" }}</textarea>
+        <p class="hint">Maximum {{ max_data_length }} characters.</p>
+        <div class="actions">
+          <button type="submit">Generate QR code</button>
+          <button type="reset" class="secondary">Clear</button>
+        </div>
+      </form>
+      {% if qr_code %}
+        <div class="result">
+          <h2>Your QR code</h2>
+          <img src="data:image/png;base64,{{ qr_code|b64encode }}" alt="Generated QR code">
+          <form method="post" action="{{ url_for('download') }}">
+            <input type="hidden" name="data" value="{{ data }}">
+            <button type="submit">Download PNG</button>
+          </form>
+        </div>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>

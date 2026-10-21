@@ -1,0 +1,8 @@
+services:
+  qr-service:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      QR_MAX_DATA_LENGTH: "1024"
+    restart: unless-stopped

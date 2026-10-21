@@ -1,0 +1,7 @@
+{$DOMAIN} {
+	encode zstd gzip
+	# Do not expose Prometheus metrics publicly
+	@metrics path /metrics
+	respond @metrics 404
+	reverse_proxy qr-service:5000
+}
