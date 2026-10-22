@@ -7,9 +7,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt \
+COPY wheels ./wheels
+RUN pip install --no-cache-dir --no-index --find-links=./wheels -r requirements.txt \
     && addgroup --system app \
-    && adduser --system --ingroup app app
+    && adduser --system --ingroup app app \
+    && rm -rf ./wheels
 
 COPY app.py .
 COPY templates ./templates
